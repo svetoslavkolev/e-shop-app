@@ -1,0 +1,232 @@
+<div class="py-10 flex flex-col items-center">
+  <span
+    class="pb-7 text-gray-700 text-2xl font-bold bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent">
+    Checkout
+  </span>
+  <form [formGroup]="checkoutForm" class="flex flex-col items-start" (ngSubmit)="toOrderSummary()">
+    <span class="text-xl text-blue-500 font-extrabold">Personal Information</span>
+    <div class="flex flex-col my-3 w-full">
+      <div class="flex justify-between my-2">
+        <label for="firstName" class="font-semibold text-gray-500 text-lg pr-3">First Name:
+          <span class="text-red-600 text-xl">*</span>
+        </label>
+        <div class="flex flex-col">
+          <input id="firstName" type="text" formControlName="firstName"
+                 class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                 placeholder="Your First Name">
+          @if (checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.hasError(
+            'required')) {
+            <span class="text-red-600 text-base font-semibold">First Name is required!</span>
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-between my-2">
+        <label for="lastName" class="font-semibold text-gray-500 text-lg pr-3">Last Name:
+          <span class="text-red-600 text-xl">*</span>
+        </label>
+        <div class="flex flex-col">
+          <input id="lastName" type="text" formControlName="lastName"
+                 class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                 placeholder="Your Last Name">
+          @if (checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.hasError(
+            'required')) {
+            <span class="text-red-600 text-base font-semibold">Last Name is required!</span>
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-between my-2">
+        <label for="phoneNumber" class="font-semibold text-gray-500 text-lg pr-3">Phone Number:
+          <span class="text-red-600 text-xl">*</span>
+        </label>
+        <div class="flex flex-col">
+          <input id="phoneNumber" type="text" formControlName="phoneNumber"
+                 class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                 placeholder="Your Phone Number">
+          @if (checkoutForm.get('phoneNumber')?.touched && checkoutForm.get(
+            'phoneNumber')?.hasError(
+            'required')) {
+            <span class="text-red-600 text-base font-semibold">Phone Number is required!</span>
+          }
+          @if (checkoutForm.get('phoneNumber')?.touched && checkoutForm.get(
+            'phoneNumber')?.hasError(
+            'pattern')) {
+            <span class="text-red-600 text-base font-semibold">Phone Number is not valid!</span>
+            <span class="text-gray-700 text-sm font-bold">Examples for valid phone numbers:</span>
+            <ul class="text-gray-700 text-sm font-light">
+              <li>+1-800-555-5555</li>
+              <li>800-555-5555</li>
+              <li>(800) 555-5555</li>
+              <li>555-5555</li>
+              <li>1234567890</li>
+            </ul>
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-between my-2">
+        <label for="email" class="font-semibold text-gray-500 text-lg pr-3">Email:</label>
+        <div class="flex flex-col">
+          <input id="email" type="text" formControlName="email"
+                 class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                 placeholder="Your Email">
+          @if (checkoutForm.get('email')?.touched && checkoutForm.get('email')?.hasError('email')) {
+            <span class="text-red-600 text-base font-semibold">Email is not valid!</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <span class="text-xl text-blue-500 font-extrabold">Delivery Address</span>
+    <div formGroupName="address" class="flex flex-col my-3 w-full">
+      <div class="flex justify-between my-2">
+        <label for="city" class="font-semibold text-gray-500 text-lg pr-3">City:
+          <span class="text-red-600 text-xl">*</span>
+        </label>
+        <div class="flex flex-col">
+          <input id="city" type="text" formControlName="city"
+                 class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                 placeholder="Your City">
+          @if (checkoutForm.get('address.city')?.touched && checkoutForm.get(
+            'address.city')?.hasError(
+            'required')) {
+            <span class="text-red-600 text-base font-semibold">City is required!</span>
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-between my-2">
+        <label for="street" class="font-semibold text-gray-500 text-lg pr-3">Street:
+          <span class="text-red-600 text-xl">*</span>
+        </label>
+        <div class="flex flex-col">
+          <input id="street" type="text" formControlName="street"
+                 class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                 placeholder="Your Street">
+          @if (checkoutForm.get('address.street')?.touched && checkoutForm.get(
+            'address.street')?.hasError(
+            'required')) {
+            <span class="text-red-600 text-base font-semibold">Street is required!</span>
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-between my-2">
+        <label for="zip" class="font-semibold text-gray-500 text-lg pr-3">ZIP:
+          <span class="text-red-600 text-xl">*</span>
+        </label>
+        <div class="flex flex-col">
+          <input id="zip" type="text" formControlName="zip"
+                 class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                 placeholder="Your ZIP code">
+          @if (checkoutForm.get('address.zip')?.touched && checkoutForm.get(
+            'address.zip')?.hasError('required')) {
+            <span class="text-red-600 text-base font-semibold">ZIP code is required!</span>
+          }
+          @if (checkoutForm.get('address.zip')?.touched && checkoutForm.get(
+            'address.zip')?.hasError('pattern')) {
+            <span class="text-red-600 text-base font-semibold">ZIP code is not valid!</span>
+            <span class="text-gray-700 text-sm font-bold">Examples for valid ZIP codes:</span>
+            <ul class="text-gray-700 text-sm font-light">
+              <li>12345</li>
+              <li>12345-6789</li>
+            </ul>
+          }
+        </div>
+      </div>
+
+      <div class="flex justify-between my-2">
+        <label for="additionalInfo" class="font-semibold text-gray-500 text-lg pr-3">Additional
+          Info:</label>
+        <textarea id="additionalInfo" type="text" formControlName="additionalInfo"
+                  class="border-2 border-amber-800 rounded-lg px-1 h-32 w-96"
+                  placeholder="Enter additional information for your delivery address">
+        </textarea>
+      </div>
+    </div>
+
+    <span class="text-xl text-blue-500 font-extrabold">Payment Options</span>
+    <div class="flex flex-col my-3 w-full">
+      <div class="flex justify-start items-center gap-2 my-1">
+        <input type="radio" formControlName="payment" value="cash" class="w-4 h-4">
+        <label class="font-semibold text-gray-500 text-lg">Cash on Delivery</label>
+      </div>
+      <div class="flex justify-start items-center gap-2 my-1">
+        <input type="radio" formControlName="payment" value="credit_card" class="w-4 h-4">
+        <label class="font-semibold text-gray-500 text-lg">Credit Card</label>
+      </div>
+      <ng-container #credit_card_container></ng-container>
+      <ng-template formGroupName="creditCard" #credit_card>
+        <div class="flex justify-between my-2">
+          <label for="cardNumber" class="font-semibold text-gray-500 text-lg pr-3">Card Number:
+            <span class="text-red-600 text-xl">*</span>
+          </label>
+          <div class="flex flex-col">
+            <input id="cardNumber" type="text" formControlName="cardNumber"
+                   class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                   placeholder="Your Credit Card Number">
+            @if (checkoutForm.get('creditCard.cardNumber')?.touched && checkoutForm.get(
+              'creditCard.cardNumber')?.hasError('required')) {
+              <span
+                class="text-red-600 text-base font-semibold">Credit Card Number is required!</span>
+            }
+            @if (checkoutForm.get('creditCard.cardNumber')?.touched && checkoutForm.get(
+              'creditCard.cardNumber')?.hasError('pattern')) {
+              <span
+                class="text-red-600 text-base font-semibold">Credit Card Number must contain exactly 16 digits!</span>
+            }
+          </div>
+        </div>
+        <div class="flex justify-between my-2">
+          <label for="expirationDate" class="font-semibold text-gray-500 text-lg pr-3">Expiry Date:
+            <span class="text-red-600 text-xl">*</span>
+          </label>
+          <div class="flex flex-col">
+            <input id="expirationDate" type="text" formControlName="expirationDate"
+                   class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                   placeholder="When your credit card expires?">
+            @if (checkoutForm.get('creditCard.expirationDate')?.touched && checkoutForm.get(
+              'creditCard.expirationDate')?.hasError('required')) {
+              <span class="text-red-600 text-base font-semibold">Expiry Date is required!</span>
+            }
+            @if (checkoutForm.get('creditCard.expirationDate')?.touched && checkoutForm.get(
+              'creditCard.expirationDate')?.hasError('pattern')) {
+              <span class="text-red-600 text-base font-semibold">Expiry Date must follow the format YY/MM!</span>
+            }
+          </div>
+        </div>
+        <div class="flex justify-between my-2">
+          <label for="cvv" class="font-semibold text-gray-500 text-lg pr-3">CVV:
+            <span class="text-red-600 text-xl">*</span>
+          </label>
+          <div class="flex flex-col">
+            <input id="cvv" type="text" formControlName="cvv"
+                   class="border-2 border-amber-800 rounded-lg px-1 h-8 w-96"
+                   placeholder="The 3-digit code on the back side">
+            @if (checkoutForm.get('creditCard.cvv')?.touched && checkoutForm.get(
+              'creditCard.cvv')?.hasError('required')) {
+              <span class="text-red-600 text-base font-semibold">CVV is required!</span>
+            }
+            @if (checkoutForm.get('creditCard.cvv')?.touched && checkoutForm.get(
+              'creditCard.cvv')?.hasError('pattern')) {
+              <span class="text-red-600 text-base font-semibold">CVV must contain exactly 3 digits!</span>
+            }
+          </div>
+        </div>
+      </ng-template>
+    </div>
+
+    <div class="flex justify-between w-full mt-2">
+      <button type="button" routerLink="/cart"
+              class="bg-blue-400 border px-3 py-2 rounded text-white text-lg font-bold w-2/5">&lt;&lt;
+        Back to Cart
+      </button>
+      <button type="submit" [disabled]="checkoutForm.invalid"
+              [ngClass]="{'bg-gray-400': checkoutForm.invalid}"
+              class="bg-blue-400 border px-3 py-2 rounded text-white text-lg font-bold w-2/5">Next
+        &gt;&gt;
+      </button>
+    </div>
+  </form>
+</div>

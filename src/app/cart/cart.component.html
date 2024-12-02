@@ -1,0 +1,31 @@
+<div class="pt-10 flex flex-col items-center">
+  <span
+    class="pb-7 text-gray-700 text-2xl font-bold bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent">
+    Welcome to Your Cart!
+  </span>
+  @for (item of cartItems(); track item.productId) {
+    <app-cart-item class="w-1/2"
+                   [cartItem]="item"
+                   (quantityChanged)="onQuantityChanged($event)"
+                   (itemRemoved)="onItemRemoved($event)">
+    </app-cart-item>
+  } @empty {
+    <span class="py-3 text-gray-500 text-lg font-semibold">Your cart is currently empty.</span>
+    <a routerLink="/products"
+       class="text-lg text-blue-500 font-medium hover:text-blue-800 underline">
+      Add Products to Cart
+    </a>
+  }
+  @if (cartItems().length) {
+    <div class="flex justify-center gap-4 mt-5 text-2xl font-extrabold">
+      <span class="text-gray-500">Cart Total:</span>
+      <span class="text-green-700">{{ cartTotal() | currency }}</span>
+    </div>
+    <div class="flex justify-center mt-5 mb-10 w-1/4">
+      <button type="button" routerLink="/cart/checkout"
+              class="bg-blue-400 border px-3 py-2 rounded text-white text-lg font-bold w-full">
+        Checkout
+      </button>
+    </div>
+  }
+</div>

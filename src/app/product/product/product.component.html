@@ -1,0 +1,43 @@
+<div class="flex flex-col gap-4 text-gray-700 bg-amber-50 rounded-lg px-4 py-2">
+  <div class="flex justify-center">
+    <img [ngSrc]="product().image || ''" alt="Product image" class="rounded-lg w-1/2"
+         width="128" height="128">
+  </div>
+  <h1
+    class="font-serif font-extrabold text-xl bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent">
+    <a [routerLink]="'/products/' + product().id.toString()"
+       class="hover:text-blue-500 hover:underline">
+      {{ product().title }}
+    </a>
+  </h1>
+  <h2 class="font-serif font-bold text-gray-500">
+    {{ product().category | titlecase }}
+  </h2>
+  <div class="flex justify-between">
+    <div class="font-semibold font-mono text-lg text-green-700">{{ product().price | currency }}
+    </div>
+    <div class="flex justify-between gap-2" title="Rating">
+      <img ngSrc="assets/star.png" alt="Rating" height="16" width="16" class="w-6 h-6">
+      <span class="font-semibold font-mono text-lg text-blue-500">{{
+          product().rating.rate || 'N/A'
+        }}</span>
+    </div>
+    <button (click)="toggleFavorite()"
+            [title]="product().isFavorite ? 'Remove from Favorites' : 'Add to Favorites'">
+      @if (product().isFavorite) {
+        <img ngSrc="assets/favorite-heart-icon-5.jpg" alt="Remove from Favorites" height="24"
+             width="24">
+      } @else {
+        <img ngSrc="assets/favorite-svgrepo-com.svg" alt="Add to Favorites" height="24" width="24">
+      }
+    </button>
+    @if (isAddedToCart()) {
+      <img ngSrc="assets/added-to-cart.png" alt="Add to Cart" height="32" width="32"
+           title="Added to Cart">
+    } @else {
+      <button (click)="addToCart()" title="Add to Cart">
+        <img ngSrc="assets/cart.png" alt="Add to Cart" height="32" width="32">
+      </button>
+    }
+  </div>
+</div>
