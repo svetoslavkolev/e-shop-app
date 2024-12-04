@@ -1,6 +1,6 @@
 <div class="py-10 flex flex-col items-center">
   <span
-    class="pb-7 text-2xl font-bold bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent">
+    class="pb-7 text-2xl font-bold text-gradient">
     Order Summary
   </span>
   @if (cartItems().length) {
@@ -84,12 +84,10 @@
       <hr class="border border-amber-800 mt-3 mx-2">
 
       <div class="flex justify-between mt-8 mx-2">
-        <button type="button" routerLink="/cart/checkout"
-                class="bg-blue-400 border px-3 py-2 rounded text-white text-lg font-bold w-1/3">&lt;&lt;
+        <button type="button" routerLink="/cart/checkout" class="btn-common w-1/3">&lt;&lt;
           Back to Checkout
         </button>
-        <button type="submit" (click)="confirmOrder()"
-                class="bg-blue-400 border px-3 py-2 rounded text-white text-lg font-bold w-1/3">
+        <button type="submit" (click)="confirmOrder()" class="btn-common w-1/3">
           Confirm Order
         </button>
       </div>

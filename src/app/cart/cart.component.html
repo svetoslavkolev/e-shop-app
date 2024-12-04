@@ -1,6 +1,6 @@
 <div class="pt-10 flex flex-col items-center">
   <span
-    class="pb-7 text-gray-700 text-2xl font-bold bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent">
+    class="pb-7 text-gray-700 text-2xl font-bold text-gradient">
     Welcome to Your Cart!
   </span>
   @for (item of cartItems(); track item.productId) {
@@ -22,8 +22,7 @@
       <span class="text-green-700">{{ cartTotal() | currency }}</span>
     </div>
     <div class="flex justify-center mt-5 mb-10 w-1/4">
-      <button type="button" routerLink="/cart/checkout"
-              class="bg-blue-400 border px-3 py-2 rounded text-white text-lg font-bold w-full">
+      <button type="button" routerLink="/cart/checkout" class="btn-common w-full">
         Checkout
       </button>
     </div>

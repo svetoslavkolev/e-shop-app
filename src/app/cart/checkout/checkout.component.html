@@ -1,6 +1,6 @@
 <div class="py-10 flex flex-col items-center">
   <span
-    class="pb-7 text-gray-700 text-2xl font-bold bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent">
+    class="pb-7 text-gray-700 text-2xl font-bold text-gradient">
     Checkout
   </span>
   <form [formGroup]="checkoutForm" class="flex flex-col items-start" (ngSubmit)="toOrderSummary()">
@@ -210,7 +210,8 @@
             }
             @if (checkoutForm.get('creditCard.cvv')?.touched && checkoutForm.get(
               'creditCard.cvv')?.hasError('pattern')) {
-              <span class="text-red-600 text-base font-semibold">CVV must contain exactly 3 digits!</span>
+              <span
+                class="text-red-600 text-base font-semibold">CVV must contain exactly 3 digits!</span>
             }
           </div>
         </div>
@@ -218,13 +219,12 @@
     </div>
 
     <div class="flex justify-between w-full mt-2">
-      <button type="button" routerLink="/cart"
-              class="bg-blue-400 border px-3 py-2 rounded text-white text-lg font-bold w-2/5">&lt;&lt;
+      <button type="button" routerLink="/cart" class="btn-common w-2/5">&lt;&lt;
         Back to Cart
       </button>
       <button type="submit" [disabled]="checkoutForm.invalid"
-              [ngClass]="{'bg-gray-400': checkoutForm.invalid}"
-              class="bg-blue-400 border px-3 py-2 rounded text-white text-lg font-bold w-2/5">Next
+              [ngClass]="{'btn-disabled': checkoutForm.invalid}"
+              class="btn-common w-2/5">Next
         &gt;&gt;
       </button>
     </div>

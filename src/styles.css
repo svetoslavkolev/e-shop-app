@@ -6,3 +6,21 @@
 body {
   background-color: antiquewhite;
 }
+
+.text-gradient {
+  @apply bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent;
+}
+
+.btn-common {
+  @apply bg-blue-400 border rounded text-white text-lg font-bold px-3 py-2;
+}
+
+.btn-sm {
+  @apply btn-common;
+  @apply text-sm font-semibold px-2 py-2;
+}
+
+.btn-disabled {
+  @apply btn-common;
+  @apply bg-gray-400;
+}

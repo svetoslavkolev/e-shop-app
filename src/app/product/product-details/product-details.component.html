@@ -1,6 +1,6 @@
 <div class="pt-5 px-10 flex flex-row justify-center">
   <h1
-    class="font-serif font-extrabold text-3xl bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent">
+    class="font-serif font-extrabold text-3xl text-gradient">
     {{ product().category | uppercase }}
   </h1>
 </div>
@@ -9,7 +9,7 @@
        width="458" height="512">
   <div class="w-1/3 flex flex-col">
     <h2
-      class="font-serif font-extrabold text-2xl bg-gradient-to-r from-blue-500 via-green-700 to-red-800 bg-clip-text text-transparent">
+      class="font-serif font-extrabold text-2xl text-gradient">
       {{ product().title }}
     </h2>
     <h3 class="font-serif font-medium text-lg text-gray-500 my-5">{{ product().description }}</h3>
@@ -45,8 +45,8 @@
     </div>
     <div class="flex justify-start mt-3">
       <button type="button" (click)="addToCart()" [disabled]="isAddedToCart()"
-              class="bg-blue-400 border px-3 py-2 rounded shadow-md text-white text-lg font-bold w-1/2"
-              [ngClass]="{'bg-gray-400': isAddedToCart()}">
+              class="btn-common w-1/2"
+              [ngClass]="{'btn-disabled': isAddedToCart()}">
         <div class="flex gap-3 justify-center">
           <img src="assets/cart.png" alt="Add to Cart" class="w-7 h-7">
           @if (isAddedToCart()) {
@@ -58,8 +58,7 @@
       </button>
     </div>
     <div class="flex justify-start mt-8">
-      <button type="button" (click)="toggleFavorite()"
-              class="bg-blue-400 border px-3 py-2 rounded shadow-md text-white text-lg font-bold w-1/2">
+      <button type="button" (click)="toggleFavorite()" class="btn-common w-1/2">
         <div class="flex gap-3 justify-center">
           @if (product().isFavorite) {
             <img src="assets/favorite-heart-icon-5.jpg" alt="Remove from Favorites" class="w-7 h-7">
