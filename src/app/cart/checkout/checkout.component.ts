@@ -80,7 +80,7 @@ export class CheckoutComponent implements OnInit {
       cardNumber?.updateValueAndValidity();
       expiryDate?.updateValueAndValidity();
       cvv?.updateValueAndValidity();
-    }, {allowSignalWrites: true});
+    });
   }
 
   ngOnInit() {
@@ -93,7 +93,7 @@ export class CheckoutComponent implements OnInit {
   toOrderSummary() {
     const checkoutInfo = this.checkoutForm.value as CheckoutInfo;
     localStorage.setItem(LOCAL_STORAGE_CHECKOUT_KEY, JSON.stringify(checkoutInfo));
-    this.router.navigate(['/cart/order-summary']).then(r => console.log('navigated'));
+    this.router.navigate(['/cart/order-summary']).then(() => console.log('navigated'));
   }
 
 }

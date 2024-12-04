@@ -1,7 +1,6 @@
 import {Component} from '@angular/core';
 import {LOCAL_STORAGE_ORDERS_KEY, OrderInfo} from "../cart/order-info";
 import {CurrencyPipe, DatePipe, NgTemplateOutlet} from "@angular/common";
-import {RouterLink} from "@angular/router";
 
 type Order = OrderInfo & { showDetails: boolean };
 
@@ -11,7 +10,6 @@ type Order = OrderInfo & { showDetails: boolean };
   imports: [
     CurrencyPipe,
     DatePipe,
-    RouterLink,
     NgTemplateOutlet
   ],
   templateUrl: './order-history.component.html',

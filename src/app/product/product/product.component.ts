@@ -2,7 +2,7 @@ import {Component, computed, inject, input} from '@angular/core';
 import {ProductEntity, ProductsStore} from "../../store/products";
 import {CurrencyPipe, NgOptimizedImage, TitleCasePipe} from "@angular/common";
 import {FavoritesService} from "../../services/favorites.service";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {RouterLink} from "@angular/router";
 import {CartStore} from "../../store/cart";
 
 @Component({
@@ -12,7 +12,6 @@ import {CartStore} from "../../store/cart";
     NgOptimizedImage,
     TitleCasePipe,
     RouterLink,
-    RouterLinkActive,
     CurrencyPipe
   ],
   templateUrl: './product.component.html',
