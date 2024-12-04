@@ -15,7 +15,7 @@
     <h3 class="font-serif font-medium text-lg text-gray-500 my-5">{{ product().description }}</h3>
     @if (product().rating.rate) {
       <div class="flex gap-2">
-        @for (_ of [].constructor(Math.round(product().rating.rate)); track $index) {
+        @for (_ of numberOfStars(); track $index) {
           <img src="assets/star.png" alt="Rating" class="w-8 h-8">
         }
       </div>

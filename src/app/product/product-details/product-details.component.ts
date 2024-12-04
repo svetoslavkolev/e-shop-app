@@ -25,17 +25,26 @@ export class ProductDetailsComponent {
   product = computed(() =>
     this.productsStore.entityMap()[parseInt(this.productId)]
   );
-  quantity = signal(1);
-  totalPrice = computed(() => this.product().price * (this.cartQuantity() || this.quantity()));
 
-  isAddedToCart = computed(() =>
-    this.cartStore.items().some(item => item.productId === this.product().id)
-  );
+  quantity = signal(1);
   cartQuantity = computed(() =>
     this.cartStore.items().find(item => item.productId === this.product().id)?.quantity
   );
 
-  protected readonly Math = Math;
+  totalPrice = computed(() =>
+    this.product().price * (this.cartQuantity() || this.quantity())
+  );
+
+  isAddedToCart = computed(() =>
+    this.cartStore.items().some(item => item.productId === this.product().id)
+  );
+
+  numberOfStars = computed(() =>
+    Array.from({
+        length: Math.round(this.product().rating.rate)
+      },
+      (_, i) => i + 1)
+  );
 
   toggleFavorite() {
     this.productsStore.updateProduct({...this.product(), isFavorite: !this.product().isFavorite});
