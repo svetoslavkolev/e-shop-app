@@ -2,7 +2,6 @@ import {Component, computed, inject, signal} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ProductsStore} from "../../store/products";
 import {CurrencyPipe, NgClass, UpperCasePipe} from "@angular/common";
-import {FavoritesService} from "../../services/favorites.service";
 import {CartStore} from "../../store/cart";
 
 @Component({
@@ -18,7 +17,6 @@ import {CartStore} from "../../store/cart";
 })
 export class ProductDetailsComponent {
   private productId = inject(ActivatedRoute).snapshot.paramMap.get("productId") || '';
-  private favoritesService = inject(FavoritesService);
   private productsStore = inject(ProductsStore);
   private cartStore = inject(CartStore);
 
@@ -47,8 +45,7 @@ export class ProductDetailsComponent {
   );
 
   toggleFavorite() {
-    this.productsStore.updateProduct({...this.product(), isFavorite: !this.product().isFavorite});
-    this.favoritesService.toggleFavorite(this.product().id);
+    this.productsStore.toggleFavorite(this.product().id, !this.product().isFavorite);
   }
 
   incrementQuantity() {

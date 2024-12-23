@@ -1,7 +1,6 @@
 import {Component, computed, inject, input} from '@angular/core';
 import {ProductEntity, ProductsStore} from "../../store/products";
 import {CurrencyPipe, NgOptimizedImage, TitleCasePipe} from "@angular/common";
-import {FavoritesService} from "../../services/favorites.service";
 import {RouterLink} from "@angular/router";
 import {CartStore} from "../../store/cart";
 
@@ -19,7 +18,6 @@ import {CartStore} from "../../store/cart";
 })
 export class ProductComponent {
   product = input.required<ProductEntity>();
-  private favoritesService = inject(FavoritesService);
   private productsStore = inject(ProductsStore);
   private cartStore = inject(CartStore);
 
@@ -38,8 +36,7 @@ export class ProductComponent {
   }
 
   toggleFavorite() {
-    this.productsStore.updateProduct({...this.product(), isFavorite: !this.product().isFavorite});
-    this.favoritesService.toggleFavorite(this.product().id);
+    this.productsStore.toggleFavorite(this.product().id, !this.product().isFavorite);
   }
 
 }

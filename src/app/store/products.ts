@@ -1,5 +1,5 @@
 import {patchState, signalStore, withComputed, withMethods} from "@ngrx/signals";
-import {setEntities, setEntity, withEntities} from "@ngrx/signals/entities";
+import {setEntities, updateEntity, withEntities} from "@ngrx/signals/entities";
 import {computed, inject} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {lastValueFrom, map} from "rxjs";
@@ -38,8 +38,9 @@ export const ProductsStore = signalStore(
       patchState(store, setEntities(products));
     },
 
-    updateProduct(product: ProductEntity) {
-      patchState(store, setEntity(product));
+    toggleFavorite(productId: number, isFavorite: boolean) {
+      patchState(store, updateEntity({id: productId, changes: {isFavorite}}));
+      favService.toggleFavorite(productId);
     }
   }))
 );
