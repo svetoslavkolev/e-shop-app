@@ -1,7 +1,6 @@
 import {patchState, signalStore, withComputed, withMethods, withState} from "@ngrx/signals";
-import {computed} from "@angular/core";
-
-const _key = 'e-shop-cart';
+import {computed, inject} from "@angular/core";
+import {CartService} from "../services/cart.service";
 
 export interface Cart {
   items: CartItem[];
@@ -17,17 +16,17 @@ export interface CartItem {
 
 export const CartStore = signalStore(
   {providedIn: 'root'},
-  withState<Cart>(JSON.parse(localStorage.getItem(_key) || JSON.stringify({items: []}))),
+  withState<Cart>((cartService = inject(CartService)) => cartService.getCart()),
   withComputed(state => ({
     itemsInCart: computed(() => state.items().length),
     cartTotal: computed(() =>
       state.items().reduce((acc, item) => acc + item.price * item.quantity, 0)
     )
   })),
-  withMethods(state => ({
+  withMethods((state, cartService = inject(CartService)) => ({
     addToCart(cartItem: CartItem) {
       patchState(state, {items: [...state.items(), cartItem]});
-      localStorage.setItem(_key, JSON.stringify({items: state.items()}));
+      cartService.updateCart({items: state.items()});
     },
 
     updateItemQuantity(productId: number, quantity: number) {
@@ -35,17 +34,17 @@ export const CartStore = signalStore(
         item.productId === productId ? {...item, quantity} : item
       );
       patchState(state, {items: [...items]});
-      localStorage.setItem(_key, JSON.stringify({items: state.items()}));
+      cartService.updateCart({items: state.items()});
     },
 
     removeFromCart(productId: number) {
       patchState(state, {items: [...state.items().filter(item => item.productId !== productId)]});
-      localStorage.setItem(_key, JSON.stringify({items: state.items()}));
+      cartService.updateCart({items: state.items()});
     },
 
     clearCart() {
       patchState(state, {items: []});
-      localStorage.removeItem(_key);
+      cartService.removeCart();
     }
   }))
 );

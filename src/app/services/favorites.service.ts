@@ -7,9 +7,6 @@ export class FavoritesService {
 
   private readonly _key = 'e-shop-favorites';
 
-  constructor() {
-  }
-
   toggleFavorite(productId: number) {
     const favorites: number[] = JSON.parse(localStorage.getItem(this._key) || JSON.stringify([]));
     if (favorites.includes(productId)) {
