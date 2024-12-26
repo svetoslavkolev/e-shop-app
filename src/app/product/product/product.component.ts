@@ -36,7 +36,7 @@ export class ProductComponent {
   }
 
   toggleFavorite() {
-    this.productsStore.toggleFavorite(this.product().id, !this.product().isFavorite);
+    this.productsStore.toggleFavorite(this.product().id);
   }
 
 }
