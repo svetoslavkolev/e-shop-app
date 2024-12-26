@@ -90,4 +90,11 @@ export class ProductsService {
     this.sorting.set(sorting);
   }
 
+  resetFilteringAndSorting() {
+    this.updateSearchTerm('');
+    this.updateCategoryFilter('');
+    this.updatePriceFilter('None');
+    this.updateSorting({attribute: 'None', order: 'Asc'});
+  }
+
 }

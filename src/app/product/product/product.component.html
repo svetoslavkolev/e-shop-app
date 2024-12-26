@@ -3,8 +3,7 @@
     <img [ngSrc]="product().image || ''" alt="Product image" class="rounded-lg w-1/2"
          width="128" height="128">
   </div>
-  <h1
-    class="font-serif font-extrabold text-xl text-gradient">
+  <h1 class="font-serif font-extrabold text-xl text-gradient">
     <a [routerLink]="'/products/' + product().id.toString()"
        class="hover:text-blue-500 hover:underline">
       {{ product().title }}

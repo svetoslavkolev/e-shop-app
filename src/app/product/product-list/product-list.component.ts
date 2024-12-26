@@ -52,9 +52,6 @@ export class ProductListComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.productsService.updateSearchTerm('');
-    this.productsService.updateCategoryFilter('');
-    this.productsService.updatePriceFilter('None');
-    this.productsService.updateSorting({attribute: 'None', order: 'Asc'});
+    this.productsService.resetFilteringAndSorting();
   }
 }
