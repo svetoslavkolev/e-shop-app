@@ -1,0 +1,7 @@
+<div class="flex flex-col justify-center items-center mt-3">
+  <div class="animate-spin rounded-full h-16 w-16 border-[6px] border-dotted border-amber-800">
+  </div>
+  @if (loadingReason()) {
+    <p class="text-gradient text-base">{{ loadingReason() }}</p>
+  }
+</div>
