@@ -9,6 +9,7 @@ import {
 import {ProductsStore} from "../../store/products";
 import {FormsModule} from "@angular/forms";
 import {TitleCasePipe} from "@angular/common";
+import {LoadingSpinnerComponent} from "../../loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-product-list',
@@ -16,7 +17,8 @@ import {TitleCasePipe} from "@angular/common";
   imports: [
     ProductComponent,
     FormsModule,
-    TitleCasePipe
+    TitleCasePipe,
+    LoadingSpinnerComponent
   ],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
@@ -24,7 +26,7 @@ import {TitleCasePipe} from "@angular/common";
 export class ProductListComponent implements OnDestroy {
   private productsService = inject(ProductsService);
   products = this.productsService.productsResult;
-  categories = inject(ProductsStore).categories;
+  productsStore = inject(ProductsStore);
 
   sortAttribute = signal<SortAttribute>('None');
   sortOrder = signal<SortOrder>('Asc');

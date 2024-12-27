@@ -3,6 +3,7 @@ import {ActivatedRoute} from "@angular/router";
 import {ProductsStore} from "../../store/products";
 import {CurrencyPipe, NgClass, UpperCasePipe} from "@angular/common";
 import {CartStore} from "../../store/cart";
+import {LoadingSpinnerComponent} from "../../loading-spinner/loading-spinner.component";
 
 @Component({
   selector: 'app-product-details',
@@ -10,7 +11,8 @@ import {CartStore} from "../../store/cart";
   imports: [
     UpperCasePipe,
     NgClass,
-    CurrencyPipe
+    CurrencyPipe,
+    LoadingSpinnerComponent
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css'
@@ -19,6 +21,7 @@ export class ProductDetailsComponent {
   private productId = inject(ActivatedRoute).snapshot.paramMap.get("productId") || '';
   private productsStore = inject(ProductsStore);
   private cartStore = inject(CartStore);
+  isLoading = this.productsStore.isLoading;
 
   product = computed(() =>
     this.productsStore.entityMap()[parseInt(this.productId)]

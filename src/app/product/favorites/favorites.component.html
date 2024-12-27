@@ -1,15 +1,20 @@
-@if (!favProducts().length) {
-  <div class="p-10 flex justify-center">
-    <span class="text-red-800 text-2xl font-bold">There are no Favorite Products at the moment</span>
-  </div>
+@if (productsStore.isLoading()) {
+  <app-loading-spinner loadingReason="Loading favorites..."/>
 } @else {
-  <div class="pt-10 flex justify-center">
+  @if (!productsStore.favoriteProducts().length) {
+    <div class="p-10 flex justify-center">
+      <span
+        class="text-red-800 text-2xl font-bold">There are no Favorite Products at the moment</span>
+    </div>
+  } @else {
+    <div class="pt-10 flex justify-center">
     <span
       class="text-gray-700 text-2xl font-bold text-gradient">Your Favorite Products</span>
-  </div>
-  <div class="p-10 grid grid-cols-4 gap-10">
-    @for (product of favProducts(); track product.id) {
-      <app-product [product]="product"></app-product>
-    }
-  </div>
+    </div>
+    <div class="p-10 grid grid-cols-4 gap-10">
+      @for (product of productsStore.favoriteProducts(); track product.id) {
+        <app-product [product]="product"></app-product>
+      }
+    </div>
+  }
 }

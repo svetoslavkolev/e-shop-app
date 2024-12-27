@@ -1,50 +1,54 @@
-<div class="px-10 pt-5 flex flex-row justify-between">
-  <div>
-    <label for="search" class="font-semibold text-amber-800 text-lg pr-3">Search</label>
-    <input id="search" type="text" (keyup)="onTyping($event)"
-           class="border-2 border-amber-800 rounded-lg px-1 h-8 w-80"
-           placeholder="Type name or description">
+@if (productsStore.isLoading()) {
+  <app-loading-spinner loadingReason="Loading products..."/>
+} @else {
+  <div class="px-10 pt-5 flex flex-row justify-between">
+    <div>
+      <label for="search" class="font-semibold text-amber-800 text-lg pr-3">Search</label>
+      <input id="search" type="text" (keyup)="onTyping($event)"
+             class="border-2 border-amber-800 rounded-lg px-1 h-8 w-80"
+             placeholder="Type name or description">
+    </div>
+    <div>
+      <label for="categoryFilter" class="font-semibold text-amber-800 text-lg pr-3">Filter by
+        Category</label>
+      <select id="categoryFilter" (change)="onCategorySelected($event)"
+              class="border-2 border-amber-800 rounded-lg px-1 h-8">
+        <option value="all" selected>All</option>
+        @for (category of productsStore.categories(); track category) {
+          <option [value]="category">{{ category | titlecase }}</option>
+        }
+      </select>
+    </div>
+    <div>
+      <label for="priceFilter" class="font-semibold text-amber-800 text-lg pr-3">Filter by
+        Price</label>
+      <select id="priceFilter" (change)="onPriceFilterSelected($event)"
+              class="border-2 border-amber-800 rounded-lg px-1 h-8">
+        <option value="None" selected>All</option>
+        <option value="LessThan50">Less than $50</option>
+        <option value="Between50And100">Between $50 and $100</option>
+        <option value="GreaterThan100">Greater than $100</option>
+      </select>
+    </div>
+    <div>
+      <label for="sortAttribute" class="font-semibold text-amber-800 text-lg pr-3">Sort by</label>
+      <select [(ngModel)]="sortAttribute" id="sortAttribute" (change)="onSortingChanged()"
+              class="border-2 border-amber-800 rounded-lg px-1 h-8">
+        <option value="None">None</option>
+        <option value="Category">Category</option>
+        <option value="Price">Price</option>
+      </select>
+      <select [(ngModel)]="sortOrder" id="sortOrder" (change)="onSortingChanged()"
+              class="border-2 border-amber-800 rounded-lg px-1 ml-2 h-8">
+        <option value="Asc">Asc</option>
+        <option value="Desc">Desc</option>
+      </select>
+    </div>
   </div>
-  <div>
-    <label for="categoryFilter" class="font-semibold text-amber-800 text-lg pr-3">Filter by
-      Category</label>
-    <select id="categoryFilter" (change)="onCategorySelected($event)"
-            class="border-2 border-amber-800 rounded-lg px-1 h-8">
-      <option value="all" selected>All</option>
-      @for (category of categories(); track category) {
-        <option [value]="category">{{ category | titlecase }}</option>
-      }
-    </select>
+  <hr class="border border-amber-800 mt-5 mx-10">
+  <div class="p-10 grid grid-cols-4 gap-10">
+    @for (product of products(); track product.id) {
+      <app-product [product]="product"></app-product>
+    }
   </div>
-  <div>
-    <label for="priceFilter" class="font-semibold text-amber-800 text-lg pr-3">Filter by
-      Price</label>
-    <select id="priceFilter" (change)="onPriceFilterSelected($event)"
-            class="border-2 border-amber-800 rounded-lg px-1 h-8">
-      <option value="None" selected>All</option>
-      <option value="LessThan50">Less than $50</option>
-      <option value="Between50And100">Between $50 and $100</option>
-      <option value="GreaterThan100">Greater than $100</option>
-    </select>
-  </div>
-  <div>
-    <label for="sortAttribute" class="font-semibold text-amber-800 text-lg pr-3">Sort by</label>
-    <select [(ngModel)]="sortAttribute" id="sortAttribute" (change)="onSortingChanged()"
-            class="border-2 border-amber-800 rounded-lg px-1 h-8">
-      <option value="None">None</option>
-      <option value="Category">Category</option>
-      <option value="Price">Price</option>
-    </select>
-    <select [(ngModel)]="sortOrder" id="sortOrder" (change)="onSortingChanged()"
-            class="border-2 border-amber-800 rounded-lg px-1 ml-2 h-8">
-      <option value="Asc">Asc</option>
-      <option value="Desc">Desc</option>
-    </select>
-  </div>
-</div>
-<hr class="border border-amber-800 mt-5 mx-10">
-<div class="p-10 grid grid-cols-4 gap-10">
-  @for (product of products(); track product.id) {
-    <app-product [product]="product"></app-product>
-  }
-</div>
+}

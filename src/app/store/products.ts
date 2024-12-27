@@ -1,4 +1,11 @@
-import {patchState, signalStore, withComputed, withHooks, withMethods} from "@ngrx/signals";
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withHooks,
+  withMethods,
+  withState
+} from "@ngrx/signals";
 import {setEntities, updateEntity, withEntities} from "@ngrx/signals/entities";
 import {computed, inject} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
@@ -20,6 +27,7 @@ export type ProductEntity = Product & { isFavorite: boolean }
 
 export const ProductsStore = signalStore(
   {providedIn: 'root'},
+  withState({isLoading: false}),
   withEntities<ProductEntity>(),
 
   withComputed(store => ({
@@ -29,6 +37,7 @@ export const ProductsStore = signalStore(
 
   withHooks({
     onInit(store, http = inject(HttpClient), favService = inject(FavoritesService)) {
+      patchState(store, {isLoading: true});
       http.get<Product[]>('https://fakestoreapi.com/products').pipe(
         takeUntilDestroyed(),
         map(response => response.map(product => ({
@@ -36,7 +45,8 @@ export const ProductsStore = signalStore(
             isFavorite: favService.isFavorite(product.id)
           })
         )),
-        tap(products => patchState(store, setEntities(products)))
+        tap(products => patchState(store, setEntities(products))),
+        tap(() => patchState(store, {isLoading: false}))
       )
       .subscribe();
     }
